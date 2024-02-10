@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:15.3
+    network_mode: bridge
+    container_name: test_task_dev
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_USER=user
+      - POSTGRES_DB=db
+    restart: unless-stopped
+    volumes:
+      - test-task-dev-data:/var/lib/postgresql/data:rw
+      - ./scripts:/scripts
+
+volumes:
+  test-task-dev-data:

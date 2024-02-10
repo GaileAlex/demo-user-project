@@ -1,0 +1,44 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db
+    username: user
+    password: pass
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    database: postgresql
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/changelog-master.xml
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
+
+server:
+  port: 8085
+  servlet:
+    context-path: /api/v1
+
+logging:
+  level:
+    '[org.springframework.web]': error
+    org.hibernate.SQL: error
+    org.hibernate.type.descriptor.sql.BasicBinder: error
+    org.example.demo.demoproject: info
+
+# Every 30 seconds
+balance:
+  scheduled: "0/30 * * * * ?"
+  run: true
+
+maximum:
+  percentage:
+    for:
+      increase: 207
+
+application:
+  security:
+    jwt:
+      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      expiration: 86400000 # a day
