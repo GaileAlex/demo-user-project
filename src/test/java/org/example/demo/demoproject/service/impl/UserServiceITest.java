@@ -1,5 +1,6 @@
 package org.example.demo.demoproject.service.impl;
 
+import org.example.demo.demoproject.apiexeption.ApiException;
 import org.example.demo.demoproject.model.request.UserAmountRequest;
 import org.example.demo.demoproject.repository.UserRepository;
 import org.example.demo.demoproject.securety.model.UserDetail;
@@ -18,6 +19,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -70,6 +72,33 @@ class UserServiceITest {
 
         assertEquals(balanceUser1Before.subtract(BigDecimal.TEN), balanceUser1After);
         assertEquals(bigDecimal2Before.add(BigDecimal.TEN), bigDecimal2After);
+    }
+
+    @Test
+    void transferAmount_whenAmountIsZero() {
+        UserAmountRequest amountRequest = new UserAmountRequest();
+        amountRequest.setAmount(BigDecimal.ZERO);
+        amountRequest.setUserId(3L);
+
+        assertThrows(ApiException.class, () -> userService.transferAmount(amountRequest), "Amount must be positive");
+    }
+
+    @Test
+    void transferAmount_whenAmountIsNegative() {
+        UserAmountRequest amountRequest = new UserAmountRequest();
+        amountRequest.setAmount(BigDecimal.valueOf(-1));
+        amountRequest.setUserId(3L);
+
+        assertThrows(ApiException.class, () -> userService.transferAmount(amountRequest), "Amount must be positive");
+    }
+
+    @Test
+    void transferAmount_whenAmountIsNotEnough() {
+        UserAmountRequest amountRequest = new UserAmountRequest();
+        amountRequest.setAmount(BigDecimal.valueOf(1000));
+        amountRequest.setUserId(3L);
+
+        assertThrows(ApiException.class, () -> userService.transferAmount(amountRequest), "Not enough money");
     }
 
 }
