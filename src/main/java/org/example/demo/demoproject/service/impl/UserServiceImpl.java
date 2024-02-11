@@ -130,12 +130,17 @@ public class UserServiceImpl implements UserService {
     public MessageResponse transferAmount(UserAmountRequest amountRequest) {
         UserEntity userFrom = userRepository.findById(getUserId())
                 .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, USER_NOT_FOUND));
-        UserEntity userTo = userRepository.findById(amountRequest.getUserId())
-                .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, USER_NOT_FOUND));
+
+        if (amountRequest.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "Amount must be positive");
+        }
 
         if (userFrom.getAccount().getBalance().compareTo(amountRequest.getAmount()) < 0) {
             throw new ApiException(HttpStatus.BAD_REQUEST, "Not enough money");
         }
+
+        UserEntity userTo = userRepository.findById(amountRequest.getUserId())
+                .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, USER_NOT_FOUND));
 
         userFrom.getAccount().setBalance(userFrom.getAccount().getBalance().subtract(amountRequest.getAmount()));
         userTo.getAccount().setBalance(userTo.getAccount().getBalance().add(amountRequest.getAmount()));

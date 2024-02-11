@@ -18,13 +18,13 @@ The following technologies required:
 Follow the steps below:
 
 1. install docker  
-2. cd /demo-user-project  
-3. docker-compose up --build    * In this case, port **8081** will be used  
+2. `cd /demo-user-project`  
+3. `docker-compose up --build` *In this case, port **8081** will be used  
 4. or run in your favorite ide:  
-5. cd /demo-user-project/etc/docker/test_task_dev  
-6. docker-compose up            * To create a database in docker  
+5. `cd /demo-user-project/etc/docker/test_task_dev ` 
+6. `docker-compose up` *To create a database in docker  
 7. The **prod** profile is used only for deploying a project in Docker. For local development, the profile does not need to be installed    
-8. End Points:  
+8. **End Points:**  
    To receive a token (user - **test1@User1.com**, password - **pass** (the password is the same for all users))  
    POST http://localhost:8085/api/v1/auth/login  
    Search for users  
