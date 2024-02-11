@@ -50,11 +50,11 @@ public class UserSchedulerServiceImpl implements UserSchedulerService {
                     userNewBalance = maxBalance;
                 }
 
-                log.info("user's balance({}) with ID {} has increased, new balance- {}",
-                        user.getAccount().getBalance(), user.getId(), userNewBalance);
-
                 user.getAccount().setBalance(userNewBalance);
                 userRepository.save(user);
+
+                log.info("user's balance({}) with ID {} has increased, new balance- {}",
+                        user.getAccount().getBalance(), user.getId(), userNewBalance);
             }
 
         });

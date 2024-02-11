@@ -13,11 +13,10 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class SchedulerService {
+    private final UserSchedulerService userSchedulerService;
 
     @Value("${balance.run}")
     private boolean isBalanceSync;
-
-    private final UserSchedulerService userSchedulerService;
 
     @Scheduled(cron = "${balance.scheduled}")
     public void syncBalance() {
