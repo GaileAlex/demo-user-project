@@ -21,11 +21,11 @@ public class DateTimeConfig {
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
         return builder -> {
-            DateTimeFormatter localDateFormatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+            DateTimeFormatter localDateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
             builder.serializerByType(LocalDate.class, new LocalDateSerializer(localDateFormatter));
             builder.deserializerByType(LocalDate.class, new LocalDateDeserializer(localDateFormatter));
 
-            DateTimeFormatter localDateTimeFormatter = DateTimeFormatter.ofPattern("dd:MM:yyyy HH:mm:ss");
+            DateTimeFormatter localDateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
             builder.serializerByType(LocalDateTime.class, new LocalDateTimeSerializer(localDateTimeFormatter));
             builder.deserializerByType(LocalDateTime.class, new LocalDateTimeDeserializer(localDateTimeFormatter));
         };

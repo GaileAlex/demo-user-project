@@ -22,7 +22,7 @@ public class User {
 
     private String name;
 
-    @JsonFormat(pattern = "dd:MM:yyyy")
+    @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate dateOfBirth;
 
     @JsonIgnore

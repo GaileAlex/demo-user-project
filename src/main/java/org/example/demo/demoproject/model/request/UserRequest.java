@@ -19,7 +19,7 @@ public class UserRequest {
 
     private String phone;
 
-    @JsonFormat(pattern = "dd:MM:yyyy")
+    @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate dateOfBirth;
 
     private Integer size;

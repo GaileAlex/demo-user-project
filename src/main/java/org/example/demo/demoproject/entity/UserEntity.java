@@ -32,7 +32,7 @@ public class UserEntity {
     private String name;
 
     @Column(name = "date_of_birth")
-    @JsonFormat(pattern = "dd:MM:yyyy")
+    @JsonFormat(pattern = "dd.MM.yyyy")
     @Convert(converter = Jsr310JpaConverters.LocalDateConverter.class)
     private LocalDate dateOfBirth;
 

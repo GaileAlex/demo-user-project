@@ -28,7 +28,7 @@ Follow the steps below:
    To receive a token (user - **test1@User1.com**, password - **pass** (the password is the same for all users))  
    POST http://localhost:8085/api/v1/auth/login  
    Search for users  
-   GET http://localhost:8085/api/v1/user/managed-user-data  
+   GET http://localhost:8085/api/v1/user/managed-user-data?name=testUser&size=4&offset=0&dateOfBirth=01.04.1960&page=10&email=test1@User2.com 
    Delete email or phone  
    DELETE http://localhost:8085/api/v1/user/managed-user-data  
    Add email or phone  
